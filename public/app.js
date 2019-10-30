@@ -6,8 +6,9 @@ let fetchAndUpdate = async () => {
     msgListUL.innerHTML = ""
     parsed.forEach(elem => { 
         let li = document.createElement("li")
-        li.innerText = elem.user + ": " + elem.msg
+        li.innerHTML = `<span style="color:${elem.user.color}">${elem.user.username}</span>: ${elem.msg} <div><img src="${elem.imgPath}" /></div>`
         msgListUL.append(li)        
+        
     });
 }
 fetchAndUpdate()

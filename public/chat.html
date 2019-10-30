@@ -4,6 +4,7 @@
         <h3>Post Messages</h3>
         <form action="/messages" method="POST" enctype="multipart/form-data">
             <input type='text' name='message'></input>
+            <input type='file' name='msg-img'></input>
             <input type='submit'></input>
         </form>
         <h3>Change user name</h3>
@@ -11,6 +12,27 @@
             <input type='text' name='newname'></input>
             <input type='submit' value='change username'></input>
         </form>
+        <h3>Change color</h3>
+        <form action="/setred" method="POST" enctype="multipart/form-data">
+            <input type='submit' value='user name red'></input>
+        </form>
+        <form action="/setpink" method="POST" enctype="multipart/form-data">
+            <input type='submit' value='user name pink'></input>
+        </form>
+        <form action="/setblack" method="POST" enctype="multipart/form-data">
+            <input type='submit' value='user name black'></input>
+        </form>       
+        <h3>Ignore user</h3>
+        <form action="/ignore" method="POST" enctype="multipart/form-data">
+            <input type='text' name='uignore'></input>
+            <input type='submit'></input>
+        </form>  
+        <h3>Topic</h3>
+        <form action="/topic" method="POST" enctype="multipart/form-data">
+            <input type='text' name='topic'></input>
+            <input type='submit'></input>
+        </form>  
+
         <script src='/static/app.js'></script>
     </body>
 </html>
