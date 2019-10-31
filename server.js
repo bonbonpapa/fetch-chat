@@ -12,15 +12,28 @@ let passwordAssoc = {}
 let sessions = {}
 let messages = []
 let users = {}
+let topic = ''
+
 
 app.use('/static', express.static(__dirname + '/public'))
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/index.html")
 })
 
-app.post("/topic", upload.none(), (req, res) => {
-    let topic = req.body.topic;
+app.get('/activeuser', (req, res) => {
+    console.log('sending back the users object')
+    res.send(JSON.stringify(users));
     
+})
+
+app.post("/topic", upload.none(), (req, res) => {
+    topic = req.body.topic;
+    res.sendFile(__dirname + '/public/chat.html');
+})
+
+app.get("/topic", (req, res) => {
+    console.log('Sending back the messages')
+    res.send(JSON.stringify(topic));
 
 })
 
@@ -53,8 +66,7 @@ app.post("/change/username", upload.none(), (req , res) => {
     delete passwordAssoc[user.username]
     delete users[user.username];
     user.username = newName;
-    sessions[req.cookies["sid"]] = user;
-
+ 
     res.sendFile(__dirname + '/public/chat.html')
 })
 app.post("/messages", upload.single('msg-img'), (req, res) => {
@@ -72,8 +84,10 @@ app.post("/messages", upload.single('msg-img'), (req, res) => {
         msg: req.body.message,
         imgPath: '/static/images/' + file.filename,        
     }
+
     console.log(newMessage.imgPath)
     messages.push(newMessage)
+    user.timeLastMessage = new Date();
     res.sendFile(__dirname + '/public/chat.html')
 })
 

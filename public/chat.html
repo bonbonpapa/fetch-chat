@@ -1,5 +1,7 @@
 <html>
     <body>
+    <div style="float: left; width: 50%">
+        <div id="topic" ></div>
         <ul id='msg-list'></ul>
         <h3>Post Messages</h3>
         <form action="/messages" method="POST" enctype="multipart/form-data">
@@ -32,7 +34,11 @@
             <input type='text' name='topic'></input>
             <input type='submit'></input>
         </form>  
-
-        <script src='/static/app.js'></script>
+    </div>
+    <div style="float: right; width: 50%" id='rightscreen'>
+        <ul id='user-list'></ul>
+    </div>
+    
+    <script src='/static/app.js'></script>
     </body>
 </html>
