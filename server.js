@@ -69,12 +69,11 @@ app.post("/change/username", upload.none(), (req , res) => {
  
     res.sendFile(__dirname + '/public/chat.html')
 })
-app.post("/messages", upload.single('msg-img'), (req, res) => {
-    console.log('POST message body', req.body)
+app.post("/messages",  upload.single('imgPath'), (req, res) => {
     const sessionId = req.cookies['sid'];
     const user = sessions[sessionId];
     const file = req.file;
-    console.log(file)
+
     if (user === undefined) {
         return res.redirect('/');
     }
@@ -82,10 +81,10 @@ app.post("/messages", upload.single('msg-img'), (req, res) => {
     let newMessage = {
         user: user,
         msg: req.body.message,
-        imgPath: '/static/images/' + file.filename,        
+        imgPath: '/static/images/' + file.filename,      
+ 
     }
 
-    console.log(newMessage.imgPath)
     messages.push(newMessage)
     user.timeLastMessage = new Date();
     res.sendFile(__dirname + '/public/chat.html')

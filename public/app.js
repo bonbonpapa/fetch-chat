@@ -1,5 +1,5 @@
 let topic = document.getElementById("topic");
-let body = document.body;
+// let body = document.body;
 
 let fetchAndUpdate = async () => {
   let response = await fetch("/messages");
@@ -37,12 +37,29 @@ let fetchAndUpdate = async () => {
         activeuserList.append(li);
       }
     }
-  });
-  // Object.keys(parsedUsers).forEach(elem => {
-  //   let li = document.createElement("li");
-  //   li.innerHTML = elem;
-  //   activeuserList.append(li);
-  // })
+  }); 
 };
 fetchAndUpdate();
-setInterval(fetchAndUpdate, 500);
+setInterval(fetchAndUpdate, 5000);
+
+
+let formUpdate = () => {
+  let theForm = document.getElementById("message-form");
+  theForm.addEventListener('submit', ev => {
+  ev.preventDefault();
+  let messageInput = document.getElementById("message-input");
+  let imgPath = document.getElementById('msgimg');
+  let data = new FormData();
+  data.append("message", messageInput.value);
+ data.append("imgPath", imgPath.files[0]);
+
+ console.log(data);
+
+  fetch("/messages", {method:"POST", credentials: "same-origin", body: data});
+
+})
+
+};
+
+formUpdate();
+
